@@ -1,15 +1,15 @@
-# Jarkom-Modul-3-A09-2021
+# Jarkom-Modul-3-E04-2022
 Laporan Resmi Praktikum Jarkom Modul 3 untuk kelompok A09.
 
 # Anggota Kelompok
 Anggota  | NRP
 ---------|-------
-Arvel Gavrilla Raissananda | 05111940000040
-Johnivan Aldo Sudiono | 05111940000051
-Vincent Yonathan | 05111940000186
+Muhammad Afif Dwi Ardiansyah | 5025201212
+Muhammad Rafif Fadhil Naufal | 5025201273
+M Labib Alfaraby | 5025201083
 
 ## Soal Jarkom-Modul-2 2021
-- [Soal](https://docs.google.com/document/d/1hwuI5YpxiP-aboS7wGWPbaQeSOQl0HHVHLT3ws2BPUk/edit)
+- [Soal](https://docs.google.com/document/d/1asm7lgnTJxr17DxsE_McdUimPsRjesi6ZrHRpmXPZ4s/edit)
 
 ## Pendahuluan
 Luffy yang sudah menjadi Raja Bajak Laut ingin mengembangkan daerah kekuasaannya dengan membuat peta seperti berikut: <br>
