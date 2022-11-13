@@ -1,5 +1,5 @@
 # Jarkom-Modul-3-E04-2022
-Laporan Resmi Praktikum Jarkom Modul 3 untuk kelompok A09.
+Laporan Resmi Praktikum Jarkom Modul 4 untuk kelompok E04.
 
 # Anggota Kelompok
 Anggota  | NRP
