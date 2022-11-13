@@ -1,5 +1,5 @@
 # Jarkom-Modul-3-E04-2022
-Laporan Resmi Praktikum Jarkom Modul 4 untuk kelompok E04.
+Laporan Resmi Praktikum Jarkom Modul 3 untuk kelompok E04.
 
 # Anggota Kelompok
 Anggota  | NRP
@@ -8,7 +8,7 @@ Muhammad Afif Dwi Ardiansyah | 5025201212
 Muhammad Rafif Fadhil Naufal | 5025201273
 M Labib Alfaraby | 5025201083
 
-## Soal Jarkom-Modul-2 2021
+## Soal Jarkom-Modul-3 2022
 - [Soal](https://docs.google.com/document/d/1asm7lgnTJxr17DxsE_McdUimPsRjesi6ZrHRpmXPZ4s/edit)
 
 ## Pendahuluan
