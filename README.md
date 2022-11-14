@@ -338,16 +338,68 @@ Adapun pada hari dan jam kerja sesuai nomor (1), client hanya dapat mengakses do
 
 3. Kemudian restart squid dengan
 ```
-   service squid restart
+service squid restart
 ```
 
-### Client
+#### Client
 1. Jam kerja request google.com:
 2. Jam kerja request loid-work.com:
 3. Jam kerja request franky-work.com:
 4. Weekend request loid-work.com:
-
 ---
+
+# --- No 4 (Proxy) ---
+
+Agar menghemat penggunaan, akses internet dibatasi dengan kecepatan maksimum 128 Kbps pada setiap host (Kbps = kilobit per second; lakukan pengecekan pada tiap host, ketika 2 host akses internet pada saat bersamaan, keduanya mendapatkan speed maksimal yaitu 128 Kbps)
+
+### Langkah Penyelesaian : 
+
+#### Berlint
+
+1. Isi file `/etc/squid/acl-bandwidth.conf` dengan
+```
+   delay_pools 1
+   delay_class 1 1
+   delay_access 1 allow all
+   delay_parameters 1 8000/64000
+```
+2. Lalu isi file `/etc/squid/squid.conf` dengan
+```
+   include /etc/squid/acl.conf
+   include /etc/squid/acl-bandwidth.conf
+   
+   http_port 5000
+   visible_hostname Berlint
+   
+   acl WELCOME dstdomain "/etc/squid/restrict-sites.acl"
+   http_access deny WEEKEND WELCOME
+   http_access allow WEEKEND
+   http_access allow WORKING WELCOME
+   http_access deny WORKING
+   http_access deny all WELCOME
+   http_access allow all
+```
+3. Kemudian restart squid dengan
+```
+service squid restart
+```
+
+#### Client
+
+1. Install speedtest-cli dengan memutuskan proxy terlebih dahulu
+```
+unset http_proxy
+apt-get update
+apt install speedtest-cli
+```
+2. Jalankan command tersebut untuk meng-allow speetest nya
+```
+export PYTHONHTTPSVERIFY=0
+```
+3. Jalankan speedtest hasilnya berikut (tanpa tersambung proxy):
+4. Jalankan speedtest hasilnya berikut (tersambung proxy):
+
+
 ## Kendala
 Kendala yang dialami daripada pengerjaan modul praktikum Jarkom ini adalah :
 - Belum terbiasa menggunakan proxy sehingga kagok saat mengerjakan
