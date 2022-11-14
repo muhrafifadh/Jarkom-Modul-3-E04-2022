@@ -12,139 +12,150 @@ M Labib Alfaraby | 5025201083
 - [Soal](https://docs.google.com/document/d/1asm7lgnTJxr17DxsE_McdUimPsRjesi6ZrHRpmXPZ4s/edit)
 
 ## Pendahuluan
-Luffy yang sudah menjadi Raja Bajak Laut ingin mengembangkan daerah kekuasaannya dengan membuat peta seperti berikut: <br>
-![image](https://user-images.githubusercontent.com/36225278/141254625-b7547563-2b49-43ca-8941-d6618b795894.png)
+![peta soal](https://user-images.githubusercontent.com/81162174/201649656-94e9d419-102e-4035-92ca-9c654bf12ff7.png)
 
 ### Edit Knofigurasi Network
 
-#### Foosha
+#### Ostania 
 ```
 auto eth0
 iface eth0 inet dhcp
 
 auto eth1
 iface eth1 inet static
-	address 192.173.1.1
-	netmask 255.255.255.0
+    address 192.194.1.1
+    netmask 255.255.255.0
 
 auto eth2
 iface eth2 inet static
-	address 192.173.2.1
-	netmask 255.255.255.0
+    address 192.194.2.1
+    netmask 255.255.255.0
 
 auto eth3
 iface eth3 inet static
-	address 192.173.3.1
-	netmask 255.255.255.0
-```
+    address 192.194.3.1
+    netmask 255.255.255.0
 
-#### EniesLobby
 ```
-auto eth0
-iface eth0 inet static
-	address 192.173.2.2
-	netmask 255.255.255.0
-	gateway 192.173.2.1
-```
-#### Water7
-```
-auto eth0
-iface eth0 inet static
-	address 192.173.2.3
-	netmask 255.255.255.0
-	gateway 192.173.2.1
-```
-
-### Jipangu
-```
-auto eth0
-iface eth0 inet static
-	address 192.173.2.4
-	netmask 255.255.255.0
-	gateway 192.173.2.1
-```
-
-#### Loguetown, Alabasta, Totoland, Skypie 
+## Switch 1
+#### SSS, Garden
 ```
 auto eth0
 iface eth0 inet dhcp
+
+```
+## Switch 2
+
+#### Wise
+```
+auto eth0
+iface eth0 inet static
+    address 192.194.2.2
+    netmask 255.255.255.0
+    gateway 192.194.2.1
+
+```
+#### Berlint
+```
+auto eth0
+iface eth0 inet static
+    address 192.194.2.3
+    netmask 255.255.255.0
+    gateway 192.194.2.1
+
+```
+
+### Westalis
+```
+auto eth0
+iface eth0 inet static
+    address 192.194.2.4
+    netmask 255.255.255.0
+    gateway 192.194.2.1
+
+```
+## Switch 3
+#### Eden, NewstonCastle, KemonoPark
+```
+auto eth0
+iface eth0 inet dhcp
+
 ```
 
 # --- No 1 ---
 
-Luffy bersama Zoro berencana membuat peta tersebut dengan kriteria EniesLobby sebagai DNS Server, Jipangu sebagai DHCP Server, Water7 sebagai Proxy Server
+Loid bersama Franky berencana membuat peta tersebut dengan kriteria WISE sebagai DNS Server, Westalis sebagai DHCP Server, Berlint sebagai Proxy Server
 
 ### Jawab
 
 ### Langkah Penyelesaian : 
 
-#### Foosha
+#### Ostania
 
-1. Menjalankan command `iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 192.173.0.0/16` yang digunakan supaya dapat terhubung ke jaringan luar pada router `Foosha`
+1. Menjalankan command `iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 192.194.0.0/16` yang digunakan supaya dapat terhubung ke jaringan luar pada router `Ostania`
 
-2. Setelah itu pada EniesLobby, Water7, Jipangu dijalankan command `echo "nameserver 192.168.122.1" > /etc/resolv.conf` untuk setting IP DNS agar dapat terhubung ke jaringan luar.
+2. Setelah itu pada Wise, Berlint, Westalist dijalankan command `echo "nameserver 192.168.122.1" > /etc/resolv.conf` untuk setting IP DNS agar dapat terhubung ke jaringan luar.
 
-#### EniesLobby
+#### Wise
 
-3. pada EniesLobby jalankan command `apt-get update` dan `apt-get install bind9 -y` untuk menginstall bind9
+3. pada Wise jalankan command `apt-get update` dan `apt-get install bind9 -y` untuk menginstall bind9
 
-#### Jipangu
+#### Westalis
 
-4. Pada Jipangu jalankan command `apt-get update` dan `apt-get install isc-dhcp-server -y` untuk menginstall isc-dhcp-server
+4. Pada Westalis jalankan command `apt-get update` dan `apt-get install isc-dhcp-server -y` untuk menginstall isc-dhcp-server
 
-5. Kemudian setting `INTERFACES` yang digunakan oleh Jipangu pada file `/etc/default/isc-dhcp-server` dengan menambahkan `eth0`
-![image](https://user-images.githubusercontent.com/36225278/141259265-4c8454e3-65eb-4d26-83b6-44f35e1237f4.png)
+5. Kemudian setting `INTERFACES` yang digunakan oleh Westalis pada file `/etc/default/isc-dhcp-server` dengan menambahkan `eth0`
+![nomor1](https://user-images.githubusercontent.com/81162174/201654099-78698bcd-930c-44f6-869e-193cd110bb16.PNG)
 
+#### Berlint
 
-#### Water7
-
-6. pada Water7 jalankan command `apt-get update` dan `apt-get install squid -y` untuk menginstall squid
+6. pada Berlint jalankan command `apt-get update` dan `apt-get install squid -y` untuk menginstall squid
 
 # --- No 2 ---
 
-Foosha sebagai DHCP Relay
+Ostania sebagai DHCP Relay
 
 ### Langkah Penyelesaian : 
 
-#### Foosha
+#### Ostania
 
 1. Pada Foosha jalankan command `apt-get update` dan `apt-get install isc-dhcp-relay -y` untuk menginstall isc-dhcp-relay
 
-2. Kemudian edit file `/etc/default/isc-dhcp-relay` dengan menambahkan `SERVER = "IP Jipangu"` dan `INTERFACES = "eth1 eth2 eth3"`
+2. Kemudian edit file `/etc/default/isc-dhcp-relay` dengan menambahkan `SERVER = "IP Westalis"` dan `INTERFACES = "eth1 eth2 eth3"`
 ```
 # What servers should the DHCP relay forward requests to?
-SERVERS="192.173.2.4"
+SERVERS="192.194.2.4"
 
 # On what interfaces should the DHCP relay (dhrelay) serve DHCP requests?
 INTERFACES="eth1 eth2 eth3"
 ```
 
-![image](https://user-images.githubusercontent.com/36225278/141260709-71770623-ed1f-4114-87e0-c85334fed17c.png)
+![nomor2](https://user-images.githubusercontent.com/81162174/201654982-2a2fc9b6-588d-456b-ac84-eb7eb21bc16d.PNG)
 
 3. Lalu jalankan command `service isc-dhcp-relay restart`
 
 # --- No 3 ---
 
-Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.20 - [prefix IP].1.99 dan [prefix IP].1.150 - [prefix IP].1.169
+Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.50 - [prefix IP].1.88 dan [prefix IP].1.120 - [prefix IP].1.155
 
 ### Langkah Penyelesaian : 
 
-#### Jipangu
+#### 
 
 1. Edit file `/etc/dhcp/dhcpd.conf` dengan menambahkan:
 
 ```
-    subnet 192.173.1.0 netmask 255.255.255.0 {
-        range 192.173.1.20 192.173.1.99;
-        range 192.173.1.150 192.173.1.169;
-        option routers 192.173.1.1;
-        option broadcast-address 192.173.1.255;
-        option domain-name-servers 192.173.2.2;
-        default-lease-time 360;
-        max-lease-time 7200;
-    }
+	subnet 192.194.1.0 netmask 255.255.255.0 {
+		range 192.194.1.50 192.194.1.88;
+		range 192.194.1.120 192.194.1.155;
+		option routers 192.194.1.1;
+		option broadcast-address 192.194.1.255;
+		option domain-name-servers 192.194.2.2;
+		default-lease-time 300;
+		max-lease-time 6900;
+	}
 ```
-![image](https://user-images.githubusercontent.com/36225278/141260955-fbe98610-cfba-4540-8897-fbaf5f2907d0.png)
+![nomor3](https://user-images.githubusercontent.com/81162174/201656368-53ed4f26-6d30-496a-9b27-055b0c816b16.PNG)
 
 2. Lalu jalankan command `service isc-dhcp-server restart`
 
