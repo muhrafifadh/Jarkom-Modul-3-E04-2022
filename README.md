@@ -427,7 +427,12 @@ service squid restart
 
 #### Client
 1. Speedtest di weekend:
-2. Speedtest di hari kerja:
+
+<img width="466" alt="image" src="https://user-images.githubusercontent.com/87472849/201636870-74cdf822-33aa-43b7-b2c5-fbf9a1ea29b4.png">
+
+3. Speedtest di hari kerja:
+
+<img width="489" alt="image" src="https://user-images.githubusercontent.com/87472849/201636777-21b93eff-03c4-4e91-9f3c-273da4f6dfde.png">
 
 ## Kendala
 Kendala yang dialami daripada pengerjaan modul praktikum Jarkom ini adalah :
