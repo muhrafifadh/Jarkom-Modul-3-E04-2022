@@ -399,6 +399,30 @@ export PYTHONHTTPSVERIFY=0
 3. Jalankan speedtest hasilnya berikut (tanpa tersambung proxy):
 4. Jalankan speedtest hasilnya berikut (tersambung proxy):
 
+# --- No 5 (Proxy) ---
+
+Setelah diterapkan, ternyata peraturan nomor (4) mengganggu produktifitas saat hari kerja, dengan demikian pembatasan kecepatan hanya diberlakukan untuk pengaksesan internet pada hari libur
+
+### Langkah Penyelesaian : 
+
+#### Berlint
+1. Ubah isi file ` /etc/squid/acl-bandwidth.conf` dengan baris berikut
+```
+   include /etc/squid/acl.conf
+   
+   delay_pools 1
+   delay_class 1 1
+   delay_access 1 allow WEEKEND
+   delay_parameters 1 8000/64000
+```
+2. Kemudian restart squid dengan
+```
+service squid restart
+```
+
+#### Client
+1. Speedtest di weekend:
+2. Speedtest di hari kerja:
 
 ## Kendala
 Kendala yang dialami daripada pengerjaan modul praktikum Jarkom ini adalah :
