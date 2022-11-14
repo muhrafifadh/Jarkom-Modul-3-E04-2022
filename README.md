@@ -150,113 +150,137 @@ Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.20 - [prefix
 
 # --- No 4 ---
 
-Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.30 - [prefix IP].3.50
+Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.10 - [prefix IP].3.30 dan [prefix IP].3.60 - [prefix IP].3.85
 
 ### Langkah Penyelesaian : 
 
-#### Jipangu
+#### Westalis
 
 1. Edit file `/etc/dhcp/dhcpd.conf` dengan menambahkan:
 
 ```
-    subnet 192.173.3.0 netmask 255.255.255.0 {
-        range 192.173.3.30 192.173.3.50;
-        option routers 192.173.3.1;
-        option broadcast-address 192.173.3.255;
-        option domain-name-servers 192.173.2.2;
-        default-lease-time 720;
-        max-lease-time 7200;
-    }
+echo ‘
+subnet 192.194.3.0 netmask 255.255.255.0 {
+    range 192.194.3.10 192.194.3.30;
+    range 192.194.3.60 192.194.3.85;
+    option routers 192.194.3.1;
+    option broadcast-address 192.194.3.255;
+    option domain-name-servers 192.194.2.2;
+    default-lease-time 600;
+    max-lease-time 6900;
+} ‘ >> /etc/dhcp/dhcpd.conf
+service isc-dhcp-server restart
+service  isc-dhcp-server status
+
 ```
+![image](https://user-images.githubusercontent.com/96496752/201639715-30e780d7-0f49-4200-8cc7-9cb6f26373b5.png)
 
-![image](https://user-images.githubusercontent.com/36225278/141261264-52c90f00-6b27-4acc-839b-dd25e6b7096f.png)
+2. Lalu jalankan command `service isc-dhcp-server restart` dan `service  isc-dhcp-server status`
 
-2. Lalu jalankan command `service isc-dhcp-server restart`
+Hasilnya : 
+
+![image](https://user-images.githubusercontent.com/96496752/201639896-a83efed8-e130-4cdf-921f-6fedf77c13c7.png)
 
 # --- No 5 ---
 
-Client mendapatkan DNS dari EniesLobby dan client dapat terhubung dengan internet melalui DNS tersebut.
+Client mendapatkan DNS dari WISE dan client dapat terhubung dengan internet melalui DNS tersebut.
 
 ### Langkah Penyelesaian : 
 
-#### EniesLobby
+#### Wise
 
 1. Edit file `/etc/bind/named.conf.options` dengan menambahkan
 
 ```
-    forwarders {
-        "IP nameserver dari Foosha";
-    };
+echo '
+options {
+        directory "/var/cache/bind";
 
-    allow-query{any;};
+        forwarders {
+             192.168.122.1;
+        };
+
+        auth-nxdomain no;    # conform to RFC1035
+        listen-on-v6 { any; };
+
+      allow-query{any;};
+};
+' > /etc/bind/named.conf.options
+
+service bind9 restart
+service bind9 restart
+
 ```
-
-dan mengkomen bagian
-
-```
-    // dnssec-validation auto;
-```
-
-![image](https://user-images.githubusercontent.com/36225278/141263657-1796e93d-b23d-4394-ace8-a6bafe9a7943.png)
+![image](https://user-images.githubusercontent.com/96496752/201640748-2b14491e-3597-4b59-9e3e-4ab2692273d7.png)
 
 
 2. kemudian jalankan command `service bind9 restart`
 
-#### Jipangu
+#### Westalis
 
-3. Edit file `/etc/dhcp/dhcpd.conf` dengan menambahkan baris `option domain-name-servers "IP EniesLobby"` pada `subnet 192.173.1.0` dan `subnet 192.173.3.0`
+3. Edit file `/etc/dhcp/dhcpd.conf` dengan menambahkan baris `option domain-name-servers "IP Wise"` pada `subnet 192.194.1.0` dan `subnet 192.194.3.0`, karena sudah melakukannya di nomor 3 dan 4, maka tidak perlu ditambahkan kembali
 
+#### SSS
+4. Check dengan menjalankan command `cat /etc/resolv.conf`
+
+Hasilnya : 
+
+![image](https://user-images.githubusercontent.com/96496752/201640524-af9b5fa0-5a45-4c2d-b5fd-ab6e81c5ffab.png)
 
 # --- No 6 ---
 
-Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch1 selama 6 menit sedangkan pada client yang melalui Switch3 selama 12 menit. Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 120 menit.
+Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch1 selama 5 menit sedangkan pada client yang melalui Switch3 selama 10 menit. Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 115 menit. 
 
 ### Langkah Penyelesaian : 
 
-#### Jipangu
+#### Westalis
 
-Edit file `/etc/dhcp/dhcpd.conf` dengan menambahkan baris ini pada `subnet 192.173.1.0`
-
-```
-        default-lease-time 360;
-        max-lease-time 7200;
-```
-
-
-dan menambahkan baris ini pada `subnet 192.173.3.0`
+Edit file `/etc/dhcp/dhcpd.conf` dengan menambahkan baris ini pada `subnet 192.194.1.0`
 
 ```
-        default-lease-time 720;
-        max-lease-time 7200;
+        default-lease-time 300;
+        max-lease-time 6900;
 ```
 
-![image](https://user-images.githubusercontent.com/36225278/141264400-aa271498-2d14-4678-b9db-3c54092fd6dc.png)
+
+dan menambahkan baris ini pada `subnet 192.194.3.0`
+
+```
+        default-lease-time 600;
+        max-lease-time 6900;
+```
+sama seperti sebelumnya, karena sudah sekaligus melakukan konfigurasi pada no 3 dan 4, tidak perlu mengubahnya lagi.
 
 # --- No 7 ---
 
-Luffy dan Zoro berencana menjadikan Skypie sebagai server untuk jual beli kapal yang dimilikinya dengan alamat IP yang tetap dengan IP [prefix IP].3.69
-
+Loid dan Franky berencana menjadikan Eden sebagai server untuk pertukaran informasi dengan alamat IP yang tetap dengan IP [prefix IP].3.13
 ### Langkah Penyelesaian : 
 
-#### Jipangu
-
-1. Edit file `/etc/dhcp/dhcpd.conf` dengan menambahkan baris ini
+#### Westalis
+1. Edit file `/etc/dhcp/dhcpd.conf` dengan menambahkan baris ini pada file nomor 7
 
 ```
-    host Skypie {
-        hardware ethernet "hardware address Skypie";
-        fixed-address 192.173.3.69;
-    }
+echo '
+host Eden {
+     hardware ethernet b2:1f:f3:c4:0a:75;
+     fixed-address 192.194.3.13;
+}
+' >> /etc/dhcp/dhcpd.conf
+
 ```
-![image](https://user-images.githubusercontent.com/36225278/141266005-ab6c8d05-9f23-4f5c-848f-b5c006e87e73.png)
+
+![image](https://user-images.githubusercontent.com/96496752/201641395-f97ab939-538c-47ba-86c6-13a482e33ef6.png)
 
 2. Lalu jalankan command `service isc-dhcp-server restart`
 
-#### Skypie
+#### Eden
 
 3. Kemudian tambahkan `hwaddress ether "hardware address Skypie"` pada `/etc/network/interfaces` agar hwaddress tidak berubah-ubah ketika project direstart atau diexport
 
-![image](https://user-images.githubusercontent.com/36225278/141269665-a4b88db9-4d06-4b6d-96d8-c08e5ec7bdc2.png)
+Berikut Hasilnya : 
+
+![Screenshot 2022-11-14 at 17-25-46 shift-3](https://user-images.githubusercontent.com/96496752/201641593-e3f0553f-069d-407c-be33-635f14db3178.png)
+
 
 # --- PROXY ---
 SSS, Garden, dan Eden digunakan sebagai client Proxy agar pertukaran informasi dapat terjamin keamanannya, juga untuk mencegah kebocoran data.
