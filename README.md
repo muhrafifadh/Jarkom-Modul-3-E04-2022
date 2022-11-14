@@ -307,6 +307,46 @@ Client hanya dapat mengakses internet diluar (selain) hari & jam kerja (senin-ju
 5. Test di hari senin jam kerja:
 6. Test di hari minggu:
 
+# --- No 2 (Proxy) ---
+Adapun pada hari dan jam kerja sesuai nomor (1), client hanya dapat mengakses domain loid-work.com dan franky-work.com (IP tujuan domain dibebaskan)
+
+### Langkah Penyelesaian : 
+
+#### Berlint
+
+1. Isi file `/etc/squid/restrict-sites.acl` dengan
+```
+   loid-work.com
+   franky-work.com
+```
+
+2. Isi file `/etc/squid/squid.conf` dengan
+```
+    include /etc/squid/acl.conf
+    
+    http_port 5000
+    visible_hostname Berlint
+    
+    acl WELCOME dstdomain "/etc/squid/restrict-sites.acl"
+    http_access deny WEEKEND WELCOME
+    http_access allow WEEKEND
+    http_access allow WORKING WELCOME
+    http_access deny WORKING
+    http_access deny all WELCOME
+    http_access allow all
+```
+
+3. Kemudian restart squid dengan
+```
+   service squid restart
+```
+
+### Client
+1. Jam kerja request google.com:
+2. Jam kerja request loid-work.com:
+3. Jam kerja request franky-work.com:
+4. Weekend request loid-work.com:
+
 ---
 ## Kendala
 Kendala yang dialami daripada pengerjaan modul praktikum Jarkom ini adalah :
