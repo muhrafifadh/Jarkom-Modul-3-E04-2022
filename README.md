@@ -397,7 +397,12 @@ apt install speedtest-cli
 export PYTHONHTTPSVERIFY=0
 ```
 3. Jalankan speedtest hasilnya berikut (tanpa tersambung proxy):
+
+<img width="466" alt="image" src="https://user-images.githubusercontent.com/87472849/201636397-501c4d9d-3dfe-4b15-9280-d8f7fc522663.png">
+
 4. Jalankan speedtest hasilnya berikut (tersambung proxy):
+
+<img width="461" alt="image" src="https://user-images.githubusercontent.com/87472849/201636528-dc5c7ad7-2a2d-4d44-930f-b5d479961b8c.png">
 
 # --- No 5 (Proxy) ---
 
