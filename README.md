@@ -340,7 +340,16 @@ Client hanya dapat mengakses internet diluar (selain) hari & jam kerja (senin-ju
    env | grep -i proxy
 ```
 5. Test di hari senin jam kerja:
-6. Test di hari minggu:
+
+<img width="285" alt="image" src="https://user-images.githubusercontent.com/87472849/201674135-3ac4aa66-4b68-4537-816e-a6e78e3c0e64.png">
+
+<img width="523" alt="image" src="https://user-images.githubusercontent.com/87472849/201674231-8cbc7449-26f3-4a69-b385-7f9c88120d79.png">
+
+7. Test di hari minggu:
+
+<img width="314" alt="image" src="https://user-images.githubusercontent.com/87472849/201674357-2a0702fd-92b8-4978-87bc-054da0d44659.png">
+
+<img width="499" alt="image" src="https://user-images.githubusercontent.com/87472849/201674501-bd057a76-0f7a-425f-981b-a8339803c081.png">
 
 # --- No 2 (Proxy) ---
 Adapun pada hari dan jam kerja sesuai nomor (1), client hanya dapat mengakses domain loid-work.com dan franky-work.com (IP tujuan domain dibebaskan)
@@ -377,10 +386,20 @@ service squid restart
 ```
 
 #### Client
-1. Jam kerja request google.com:
-2. Jam kerja request loid-work.com:
-3. Jam kerja request franky-work.com:
-4. Weekend request loid-work.com:
+1. Jam kerja request loid-work.com:
+
+<img width="325" alt="image" src="https://user-images.githubusercontent.com/87472849/201674846-91957fbf-64b4-416d-a451-e15869714c7e.png">
+
+<img width="392" alt="image" src="https://user-images.githubusercontent.com/87472849/201674974-ee38cec4-a808-4595-96ef-ecc8881a242a.png">
+
+<img width="530" alt="image" src="https://user-images.githubusercontent.com/87472849/201675047-7fe65a7b-1584-4d7c-a7ad-2ed6e616574e.png">
+
+2. Weekend request loid-work.com:
+
+<img width="325" alt="image" src="https://user-images.githubusercontent.com/87472849/201675150-d47b267e-8d2b-4567-8332-04e14a80a4ba.png">
+
+<img width="527" alt="image" src="https://user-images.githubusercontent.com/87472849/201675262-798d9bbc-42df-4f69-a4d6-6b2fc8d9624c.png">
+
 ---
 
 # --- No 4 (Proxy) ---
